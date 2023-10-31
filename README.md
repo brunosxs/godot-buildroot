@@ -5,13 +5,15 @@ This repository contains the Godot buildroot to generate toolchains for building
 *You will only need this if you built the engine manually. If you use official templates you will not need this*
 
 The toolchain current contains the following:
- * gcc-10.2.0
- * glibc-2.19
+ * gcc-13.2.0
+ * glibc-2.28
  * pulseaudio
  * alsa
  * X client libraries
  * udev
  * libGL
+ * fontconfig
+ * speechd
 
 # Using the SDKs
 
@@ -56,7 +58,7 @@ Afterwards the SDK will be in `output/images/<arch>-godot-linux-gnu_sdk-buildroo
 
 ###  Building a toolchain for distribution
 
-This method uses a CentOS7 container to make the buildroot *itself* portable so it can be distributed to other users. This is also the way the downloads above are generated.
+This method uses a Alma Linux 8 container to make the buildroot *itself* portable so it can be distributed to other users. This is also the way the downloads above are generated.
 
  * run `./build-sdk.sh <arch>` for instance `x86_64`
 
