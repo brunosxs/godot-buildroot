@@ -6,16 +6,11 @@
 # package is bumped or a new one added, and it requires a higher
 # version, our package infra will catch it and whine.
 #
-BR2_MAKE_VERSION_MIN = 4.0
 
-BR2_MAKE ?= $(call suitable-host-package,make,\
-	$(BR2_MAKE_VERSION_MIN) $(MAKE))
+# Godot hack, we must have make 4.3 to build older glibc
+# So instead of checking for any particular make version we just
+# force the use of our host-built make instead
 
-ifeq ($(BR2_MAKE),)
 BR2_MAKE = $(HOST_DIR)/bin/host-make -j$(PARALLEL_JOBS)
 BR2_MAKE1 = $(HOST_DIR)/bin/host-make -j1
 BR2_MAKE_HOST_DEPENDENCY = host-make
-else
-BR2_MAKE = $(MAKE)
-BR2_MAKE1 = $(MAKE1)
-endif
