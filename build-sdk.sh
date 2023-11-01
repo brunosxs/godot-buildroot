@@ -3,7 +3,7 @@ set -e
  
 function usage() {
   echo "usage: $0 host target"
-  echo "  where host is one of linux-x86_64, windows-x86_64"
+  echo "  where host is one of linux-x86_64"
   echo "  where target is one of i686, x86_64, armv7"
   exit 1
 }
@@ -14,9 +14,6 @@ fi
 
 case $1 in
   linux-x86_64)
-    host=$1
-  ;;
-  windows-x86_64)
     host=$1
   ;;
   *)
@@ -79,24 +76,6 @@ function build_linux_sdk() {
   popd
 }
 
-function build_windows_sdk() {
-  ${container} build -f Dockerfile.windows-builder -t godot-buildroot-builder-windows
-
-  if [ ! -e godot-toolchains/${toolchain_prefix}_sdk-buildroot.tar.bz2 ]; then
-    build_linux_sdk
-  fi
-
-  ${container} run -it --rm -v $(pwd):/tmp/buildroot:z -w /tmp/buildroot --userns=keep-id godot-buildroot-builder-windows bash -x /usr/local/bin/build-windows.sh ${toolchain_prefix}
-}
-
-if [ "${host}" == "linux-x86_64" ]; then
-  build_linux_sdk
-fi
-
-if [ "${host}" == "windows-x86_64" ]; then
-  build_windows_sdk
-fi
-
 echo
 echo "***************************************"
-echo "Build succesful your toolchain is in the godot-toolchains directory"
+echo "Build succesful your toolchain is in ehe godot-toolchains directory"
