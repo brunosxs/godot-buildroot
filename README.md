@@ -23,16 +23,37 @@ The first part of an SDK filename referes to the architecture that this SDK will
 
 Unpack the toolchain anywhere you like and run the `relocate-sdk.sh` script within. This needs to happen every time you move the toolchain to a different directory, but only needs to happen once after installation.
 
-After this you can build the engine more-or-less like normal. For instance for `x86_64`:
+After this you can build the engine more-or-less like normal.
 
-`scons p=x11 target=release_debug CC=/home/hp/tmp/x86_64-godot-linux-gnu_sdk-buildroot/bin/x86_64-godot-linux-gnu-gcc CXX=/home/hp/tmp/x86_64-godot-linux-gnu_sdk-buildroot/bin/x86_64-godot-linux-gnu-g++ -j64`
+## Examples:
 
-And for 32-bit Intel:
+### Godot 4:
 
-`scons p=x11 target=release_debug CC=/home/hp/tmp/i686-godot-linux-gnu_sdk-buildroot/bin/i686-godot-linux-gnu-gcc CXX=/home/hp/tmp/i686-godot-linux-gnu_sdk-buildroot/bin/i686-godot-linux-gnu-g++ -j64 use_static_cpp=yes bits=32`
+#### x86_64:
+
+`PATH=/home/hp/tmp/x86_64-godot-linux-gnu_sdk-buildroot/bin:$PATH scons p=linuxbsd target=release_debug CXX=/home/hp/tmp/x86_64-godot-linux-gnu_sdk-buildroot/bin/x86_64-godot-linux-gnu-g++ use_static_cpp=yes`
+
+#### x86:
+
+`PATH=/home/hp/tmp/arm-godot-linux-gnueabihf_sdk-buildroot/bin/:$PATH scons p=linuxbsd target=release_debug use_static_cpp=yes bits=32`
+
 *Note the `bits=32` at the end!*
 
+### Godot 3:
+
+#### x86_64:
+
+`PATH=/home/hp/tmp/x86_64-godot-linux-gnu_sdk-buildroot/bin:$PATH scons platform=x11 tools=no target=release_debug use_static_cpp=yes -j$(nproc)`
+
+#### x86:
+
+`PATH=/home/hp/tmp/arm-godot-linux-gnueabihf_sdk-buildroot/bin/:$PATH scons platform=x11 tools=no target=release_debug use_static_cpp=yes -j$(nproc) bits=32`
+
+*Note the `bits=32` at the end!*
+
+
 For other build-time options please see https://docs.godotengine.org/en/stable/development/compiling/compiling_for_x11.html
+
 
 # Obtaining an SDK
 
@@ -75,6 +96,7 @@ For detailed information please see https://buildroot.org however a short versio
  * Make your changes
 
 At this point your changes exist in .config. **Make a backup**. If you're building for local use just run `make clean sdk`, if you're using the container approach copy your `.config` file to the arch config like `config-godot-x64_64`
+
 
 ## Making Pull Requests for this repository
 
