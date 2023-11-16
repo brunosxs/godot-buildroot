@@ -76,6 +76,8 @@ function build_linux_sdk() {
   popd
 }
 
+build_linux_sdk
+
 echo
 echo "***************************************"
-echo "Build succesful your toolchain is in ehe godot-toolchains directory"
+echo "Build succesful your toolchain is in the godot-toolchains directory"
